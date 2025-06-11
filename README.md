@@ -1,6 +1,5 @@
 ## Model
-# pubsub-choreography-with-idempotency
-# 중복실행 방지 적용
+# pubsub-choreography-with-idempotency (중복실행 방지 적용)
 https://labs.msaez.io/#/189596125/storming/0b9f7fe19efd77c20c1d40f546920853
 
 ![스크린샷 2025-06-11 100806](https://github.com/user-attachments/assets/b66f29ad-ccce-4464-b3f5-436951c94654)
