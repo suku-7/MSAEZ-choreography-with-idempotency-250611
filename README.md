@@ -11,46 +11,46 @@ https://labs.msaez.io/#/189596125/storming/0b9f7fe19efd77c20c1d40f546920853
 1. sdk install java
 2. lombok 1.18.30으로 수정
 - order, delivery, product 3개 다 수정해야함
----
+
 3. kafka 모니터링 화면 띄우기
-cd kafka
-docker-compose exec -it kafka /bin/bash
-cd /bin
-./kafka-console-consumer --bootstrap-server localhost:9092 --topic choreography.with.idempotency
----
+- cd kafka
+- docker-compose exec -it kafka /bin/bash
+- cd /bin
+- ./kafka-console-consumer --bootstrap-server localhost:9092 --topic choreography.with.idempotency
+
 4. order 실행
-cd order/
-mvn spring-boot:run
----
+- cd order/
+- mvn spring-boot:run
+
 5. delivery 실행
-cd delivery/
-mvn spring-boot:run
----
+- cd delivery/
+- mvn spring-boot:run
+
 6. product 실행
-cd product/
-mvn spring-boot:run
----
+- cd product/
+- mvn spring-boot:run
+
 7. 데이터 넣어서 중복실행 확인.
-http :8083/inventories productName=TV stock=1000
-http :8083/inventories productName=RADIO stock=1000
+- http :8083/inventories productName=TV stock=1000
+- http :8083/inventories productName=RADIO stock=1000
 
-http :8081/orders customerId=1 productId=1 productName=TV qty=10
+- http :8081/orders customerId=1 productId=1 productName=TV qty=10
 
-http :8081/orders/1
-http :8083/inventories
+- http :8081/orders/1
+- http :8083/inventories
 
-http :8081/orders customerId=1 productId=2 productName=TV qty=1002
+- http :8081/orders customerId=1 productId=2 productName=TV qty=1002
 - 중복실행시켜서 2002개가 되어버렸다.
----
+
 8. product를 다시 내렸다가 올려보기 주문을 다시 하기
-mvn spring-boot:run
-http :8083/inventories productName=TV stock=1000
-http :8083/inventories productName=RADIO stock=1000
-http :8081/orders customerId=1 productId=1 productName=TV qty=10
-http :8081/orders/1
-http :8083/inventories
-http :8081/orders customerId=1 productId=2 productName=TV qty=1002
-"REJECTED DUE TO INVENTORY ERROR" 발생시킴
+- mvn spring-boot:run
+- http :8083/inventories productName=TV stock=1000
+- http :8083/inventories productName=RADIO stock=1000
+- http :8081/orders customerId=1 productId=1 productName=TV qty=10
+- http :8081/orders/1
+- http :8083/inventories
+- http :8081/orders customerId=1 productId=2 productName=TV qty=1002
+- "REJECTED DUE TO INVENTORY ERROR" 발생시킴
 
 ## Before Running Services
 ### Make sure there is a Kafka server running
